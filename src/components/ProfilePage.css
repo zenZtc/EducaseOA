@@ -1,0 +1,138 @@
+.profile-content {
+  padding: 32px 24px;
+  min-height: 600px;
+}
+
+.profile-header {
+  margin-bottom: 24px;
+}
+
+.profile-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.profile-avatar-container {
+  position: relative;
+  margin-right: 16px;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.avatar-loading {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #7c3aed;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.profile-status-dot {
+  width: 16px;
+  height: 16px;
+  background: #7c3aed;
+  border: 3px solid white;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+.avatar-refresh-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.avatar-refresh-btn:hover {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  transform: scale(1.1);
+}
+
+.avatar-refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.profile-details {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.profile-email {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.profile-description {
+  padding: 20px;
+}
+
+.profile-description p {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 12px;
+}
