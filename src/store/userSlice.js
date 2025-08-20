@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  currentUser: null,
   registeredUsers: [],
-  isLoggedIn: false,
+  currentUser: null
 };
 
 const userSlice = createSlice({
@@ -11,37 +10,27 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     registerUser: (state, action) => {
-      const newUser = {
-        id: Date.now(),
-        ...action.payload,
-        avatar: null,
-      };
-      state.registeredUsers.push(newUser);
+      state.registeredUsers.push(action.payload);
     },
     loginUser: (state, action) => {
-      const { email } = action.payload;
-      const user = state.registeredUsers.find(u => u.email === email);
-      if (user) {
-        state.currentUser = user;
-        state.isLoggedIn = true;
-      }
+      const user = state.registeredUsers.find(u => u.email === action.payload.email);
+      state.currentUser = user;
+    },
+    logoutUser: (state) => {
+      state.currentUser = null;
     },
     updateUserAvatar: (state, action) => {
       if (state.currentUser) {
         state.currentUser.avatar = action.payload;
-        // Also update in registeredUsers array
-        const userIndex = state.registeredUsers.findIndex(u => u.id === state.currentUser.id);
+        // Also update in registered users array
+        const userIndex = state.registeredUsers.findIndex(u => u.email === state.currentUser.email);
         if (userIndex !== -1) {
           state.registeredUsers[userIndex].avatar = action.payload;
         }
       }
-    },
-    logoutUser: (state) => {
-      state.currentUser = null;
-      state.isLoggedIn = false;
-    },
-  },
+    }
+  }
 });
 
-export const { registerUser, loginUser, updateUserAvatar, logoutUser } = userSlice.actions;
+export const { registerUser, loginUser, logoutUser, updateUserAvatar } = userSlice.actions;
 export default userSlice.reducer;

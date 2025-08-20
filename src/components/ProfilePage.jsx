@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUserAvatar } from '../store/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { updateUserAvatar, logoutUser } from '../store/userSlice';
 import axios from 'axios';
 import './ProfilePage.css';
 
-const ProfilePage = ({ onNavigate }) => {
+const ProfilePage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentUser = useSelector(state => state.user.currentUser);
   const [loading, setLoading] = useState(false);
   const [avatarError, setAvatarError] = useState(false);
@@ -46,12 +48,17 @@ const ProfilePage = ({ onNavigate }) => {
     }
   }, [currentUser]);
 
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate('/');
+  };
+
   if (!currentUser) {
     return (
       <div className="mobile-container">
         <div className="profile-content">
           <p>Please login first</p>
-          <button onClick={() => onNavigate('login')} className="btn-primary">
+          <button onClick={() => navigate('/login')} className="btn-primary">
             Go to Login
           </button>
         </div>
@@ -111,7 +118,7 @@ const ProfilePage = ({ onNavigate }) => {
 
         <div className="profile-actions">
           <button
-            onClick={() => onNavigate('welcome')}
+            onClick={handleLogout}
             className="btn-secondary"
           >
             Logout

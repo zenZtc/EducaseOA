@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../store/userSlice';
 import './RegisterPage.css';
 
-const RegisterPage = ({ onNavigate }) => {
+const RegisterPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
@@ -21,7 +23,7 @@ const RegisterPage = ({ onNavigate }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(formData));
-    onNavigate('login');
+    navigate('/login');
   };
 
   return (
@@ -120,7 +122,6 @@ const RegisterPage = ({ onNavigate }) => {
               </label>
             </div>
           </div>
-
 
           {/* Submit */}
           <button type="submit" className="btn-primary register-btn">

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../store/userSlice';
 import './LoginPage.css';
 
-const LoginPage = ({ onNavigate }) => {
+const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const registeredUsers = useSelector(state => state.user.registeredUsers);
 
   const [formData, setFormData] = useState({
@@ -25,7 +27,7 @@ const LoginPage = ({ onNavigate }) => {
 
     if (user && user.password === formData.password) {
       dispatch(loginUser({ email: formData.email }));
-      onNavigate('profile');
+      navigate('/profile');
     } else {
       setError('Invalid email or password');
     }
