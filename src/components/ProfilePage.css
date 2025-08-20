@@ -107,7 +107,10 @@
 
 .profile-details {
   flex: 1;
+  min-width: 0;   /* important inside flex */
+  overflow: hidden; /* hide overflow for marquee */
 }
+
 
 .profile-name {
   font-size: 18px;
@@ -119,6 +122,11 @@
 .profile-email {
   font-size: 14px;
   color: #6b7280;
+  white-space: nowrap;       /* keep text in one line */
+  display: inline-block;
+  animation: marquee 8s linear infinite;
+  padding-left: 100%;        /* start from right */
+  box-sizing: content-box;
 }
 
 .profile-description {
@@ -135,4 +143,9 @@
 .profile-actions {
   display: flex;
   gap: 12px;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }

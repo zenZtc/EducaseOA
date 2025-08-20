@@ -15,24 +15,24 @@ const ProfilePage = ({ onNavigate }) => {
     try {
       setLoading(true);
       setAvatarError(false);
-      
+
       // Using DiceBear API for random avatars
       const avatarStyle = 'avataaars'; // You can change to: adventurer, avataaars, bottts, etc.
       const seed = currentUser?.email || Math.random().toString();
       const avatarUrl = `https://api.dicebear.com/7.x/${avatarStyle}/svg?seed=${seed}&backgroundColor=7c3aed,f59e0b,10b981&radius=50`;
-      
+
       // Test if the URL works
       const response = await axios.get(avatarUrl);
       if (response.status === 200) {
         dispatch(updateUserAvatar(avatarUrl));
       }
-      
+
       setLoading(false);
     } catch (error) {
       console.error('Error fetching avatar:', error);
       setAvatarError(true);
       setLoading(false);
-      
+
       // Fallback to a simple placeholder
       const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser?.fullName || 'User')}&background=7c3aed&color=fff&size=80`;
       dispatch(updateUserAvatar(fallbackAvatar));
@@ -65,7 +65,7 @@ const ProfilePage = ({ onNavigate }) => {
         <div className="profile-header">
           <h1 className="profile-title">Account Settings</h1>
         </div>
-        
+
         <div className="profile-card">
           <div className="profile-info">
             <div className="profile-avatar-container">
@@ -74,15 +74,15 @@ const ProfilePage = ({ onNavigate }) => {
                   <div className="loading-spinner"></div>
                 </div>
               ) : (
-                <img 
-                  src={currentUser.avatar || 'https://via.placeholder.com/60'} 
-                  alt="Profile" 
+                <img
+                  src={currentUser.avatar || 'https://via.placeholder.com/60'}
+                  alt="Profile"
                   className="profile-avatar"
                   onError={() => setAvatarError(true)}
                 />
               )}
               <div className="profile-status-dot"></div>
-              <button 
+              <button
                 className="avatar-refresh-btn"
                 onClick={fetchRandomAvatar}
                 disabled={loading}
@@ -91,23 +91,27 @@ const ProfilePage = ({ onNavigate }) => {
                 🔄
               </button>
             </div>
-            
+
             <div className="profile-details">
               <h2 className="profile-name">{currentUser.fullName}</h2>
-              <p className="profile-email">{currentUser.email}</p>
+              <p
+                className={`profile-email ${currentUser.email.length > 25 ? 'marquee' : ''}`}
+              >
+                {currentUser.email}
+              </p>
             </div>
           </div>
-          
+
           <div className="profile-description">
             <p>
               Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam Erat, Sed Diam
             </p>
           </div>
         </div>
-        
+
         <div className="profile-actions">
-          <button 
-            onClick={() => onNavigate('welcome')} 
+          <button
+            onClick={() => onNavigate('welcome')}
             className="btn-secondary"
           >
             Logout
